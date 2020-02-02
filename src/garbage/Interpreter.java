@@ -1,3 +1,5 @@
+package garbage;
+
 import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.NoSuchElementException;

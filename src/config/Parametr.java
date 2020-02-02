@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parametr {
-    private final int CREATING_CODE = 3453;
+
     private static Parametr parametr = null;
     private List<Atribut> atributList = new ArrayList<>();
     private List<Formula> formulaList = new ArrayList<>();
@@ -12,22 +12,13 @@ public class Parametr {
 
     public static Parametr init() {
         if (parametr == null)
-            parametr = new Parametr(3453);
+            parametr = new Parametr();
         return parametr;
     }
 
-    public Parametr(){
-        createExecption();
-    }
-    public Parametr(int creatingCode){
-        if (creatingCode != CREATING_CODE)
-      createExecption();
+    private Parametr(){
     }
 
-    private void createExecption(){
-        System.out.println("You cant create instance of this object! Use method init");
-        throw new RuntimeException();
-    }
 
     public Atribut createAtribut(String name) {
         Atribut atribut = new Atribut(name);
@@ -51,12 +42,25 @@ public class Parametr {
 
     public class Formula {
         private String name, formula;
-        private Object bestResult;
+        private int bestResult;
         boolean bestResultMin, bestResultMax = false;
 
-        public Formula(String name, String formula) {
+        private Formula(String name, String formula) {
             this.formula = formula;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getFormula() {
+            return formula;
+        }
+
+        public int getBestResult() {
+            return bestResult;
+        }
+
         public Parametr bestResultMax(){
             bestResultMax = true;
             return parametr;
@@ -65,11 +69,10 @@ public class Parametr {
             bestResultMin = true;
             return parametr;
         }
-        public Parametr setBestResult(Object bestResult){
+        public Parametr setBestResult(int bestResult){
             this.bestResult = bestResult;
             return parametr;
         }
-
 
     }
 
