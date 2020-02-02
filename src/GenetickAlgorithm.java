@@ -1,3 +1,5 @@
+import config.Parametr;
+
 import java.util.HashMap;
 import java.util.Map;
 

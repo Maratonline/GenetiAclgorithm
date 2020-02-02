@@ -1,3 +1,5 @@
+package config;
+
 public class MinMax<T> {
     private T min = null;
     private T max = null;

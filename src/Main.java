@@ -1,36 +1,23 @@
+import config.Parametr;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] arg) {
         RequestParam requestParam = new RequestParam();
-//        GenetickAlgorithm genetickAlgorithm = new GenetickAlgorithm();
-//        Parametr parametr = Parametr.init();
-//        genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a*b").bestResultMax());
-//        genetickAlgorithm.addFormul(parametr.setFormula("Length", "a^2+b^2=#").bestResultMin());
-//        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin("1").setMax("20").end());
-//        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin("1").setMax("20").end());
+        GenetickAlgorithm genetickAlgorithm = new GenetickAlgorithm();
+        Parametr parametr = Parametr.init();
+        genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a*b").bestResultMax());
+        genetickAlgorithm.addFormul(parametr.setFormula("Length", "a^2+b^2=#").bestResultMin());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin("1").setMax("20").end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin("1").setMax("20").end());
 
 //        test04();
-        test05();
-        int n = 264;
-        int digitsNumber;
-        if (n > 0)
-            digitsNumber = n - n / 10;
+
     }
 
-    private static void test05() {
-//        int n = 111;
-//        int r = n/10;
-//        int digitsNumber =  n-n/10;
-//        System.out.println("COUNT " +digitsNumber);
 
-        int n = 10000000;
-        int digitsNumber = 0;
-        if (n > 0)
-            digitsNumber = n - n / 10;
-        System.out.println(digitsNumber);
-    }
 
     private static void test02() {
         Interpreter.Expr expr = Interpreter.parse("w x z * *");
@@ -57,15 +44,7 @@ public class Main {
         Map<Character, Integer> arguments = new HashMap<>();
         arguments.put('a', 5);
         arguments.put('и', 8);
-        int sqare;
-        char[] chars = formula.toCharArray();
-        for (char ch : chars) {
-            if (arguments.get(ch) == null) {
 
-            } else {
-
-            }
-        }
     }
 
     /**
