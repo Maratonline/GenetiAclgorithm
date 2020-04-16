@@ -1,8 +1,9 @@
 package interfaces;
 
 import config.Parametr;
+import main.GenetickAlgorithm;
 
 public interface FormulaDevicable {
 
-    void parce (Parametr parametr);
+    Integer parce (Parametr.Formula formula, GenetickAlgorithm.Genom genom);
 }

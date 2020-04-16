@@ -1,20 +1,38 @@
-import config.Parametr;
+package main;
 
+import config.Parametr;
+import main.GenetickAlgorithm;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] arg) {
-        RequestParam requestParam = new RequestParam();
-        GenetickAlgorithm genetickAlgorithm = new GenetickAlgorithm();
-        Parametr parametr = Parametr.init();
-        genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a*b").bestResultMax());
-        genetickAlgorithm.addFormul(parametr.setFormula("Length", "a^2+b^2=#").bestResultMin());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin("1").setMax("20").end());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin("1").setMax("20").end());
+
+         test();
+
+        //forTest();
 
     }
 
+    public static void test() {
+        GenetickAlgorithm genetickAlgorithm = new GenetickAlgorithm();
+        Parametr parametr = Parametr.init();
+        // a = 4   b = 7
+        genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a * b + -10 ^ 3").bestResultMax());
+        //genetickAlgorithm.addFormul(parametr.setFormula("Length", "a ^ 2 + b ^ 2 + 15").bestResultMin());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin("1").setMax("20").end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin("1").setMax("20").end());
+        genetickAlgorithm.creatAlgorithm();
+    }
+
+    public static void forTest() {
+    float fl = 0000.00001f;
+    double dg = 000.01d;
+//        System.out.println(checkNuber(dg, fl));
+    }
 
 
 
