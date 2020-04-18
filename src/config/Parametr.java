@@ -5,10 +5,14 @@ import java.util.List;
 
 public class Parametr <N extends Number> {
 
-    private static Parametr parametr = null;
+    private Parametr parametr = null;
     private List<Atribut> atributList = new ArrayList<>();
     private List<Formula> formulaList = new ArrayList<>();
 
+
+    public void setLicnkToCreatedParametr(Parametr<N> parametr){
+        this.parametr = parametr;
+    }
 
     /**
      * @param name String

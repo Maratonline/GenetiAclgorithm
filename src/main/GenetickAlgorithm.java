@@ -16,17 +16,23 @@ public class GenetickAlgorithm <N extends Number>  {
 
     //Todo once, it should to chouse which type of calcualtor to create
      GenetickAlgorithm(){
-         parametr = new Parametr<N>();
         calculator = new CalculatorBigDecimal();
 //    else
 //        calculator = new Calculator<N>();
     }
 
-    public void addFormul(Parametr parametr){}
-    public void addAtribut(Parametr parametr){}
+    public void addAtribut(Parametr parametr){
+        this.parametr = parametr;
+    }
+    public void addFormul(Parametr parametr){
+        this.parametr = parametr;
+    }
+
     public Parametr<N> getParametr(){
-         if (parametr == null)
-             this.parametr = new Parametr<N>();
+         if (parametr == null) {
+             parametr = new Parametr<N>();
+            parametr.setLicnkToCreatedParametr(parametr);
+         }
          return parametr;
     }
 
@@ -34,7 +40,7 @@ public class GenetickAlgorithm <N extends Number>  {
         parametr.getFormulaList().forEach(formula -> {
             Genom genom = new Genom<N>();
             genom.setAtribut("a", 4, 4);
-            genom.setAtribut("b", 7.22f, 0.5f);
+            genom.setAtribut("b", 7.0f, 0.5f);
             System.out.println(calculator.parce(formula, genom));
         });
     }
