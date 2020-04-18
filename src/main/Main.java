@@ -22,9 +22,9 @@ public class Main {
         Parametr parametr = Parametr.init();
         // a = 4   b = 7
         genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a * b + -10 ^ 3").bestResultMax());
-        //genetickAlgorithm.addFormul(parametr.setFormula("Length", "a ^ 2 + b ^ 2 + 15").bestResultMin());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin("1").setMax("20").end());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin("1").setMax("20").end());
+        genetickAlgorithm.addFormul(parametr.setFormula("Length", "a ^ 2 + b ^ 2 + 15").bestResultMin());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin(1.0).setMax(20.0).setRage(0.1).end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin(1.0).setMax(20.0).setRage(0.1).end());
         genetickAlgorithm.creatAlgorithm();
     }
 

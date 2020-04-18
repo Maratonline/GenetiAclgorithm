@@ -3,11 +3,11 @@ package config;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parametr {
+public class Parametr<N> {
 
     private static Parametr parametr = null;
     private List<Atribut> atributList = new ArrayList<>();
-    private List<Formula> formulaList = new ArrayList<>();
+    private List<Parametr.Formula> formulaList = new ArrayList<>();
 
 
     public static Parametr init() {
@@ -26,6 +26,7 @@ public class Parametr {
         return atribut;
     }
 
+
     public Formula setFormula(String name, String formulaStr) {
         Formula formula = new Formula(name,formulaStr);
         formulaList.add(formula);
@@ -36,7 +37,7 @@ public class Parametr {
         return atributList;
     }
 
-    public List<Formula> getFormulaList() {
+    public List<Parametr.Formula> getFormulaList() {
         return formulaList;
     }
 
@@ -76,24 +77,42 @@ public class Parametr {
 
     }
 
-    public class Atribut {
+    public class Atribut<N> {
         private String name;
-        private Object min, max;
+        private N min, max, rage;
 
         public Atribut(String name) {
             this.name = name;
         }
 
-        public Atribut setMin(Object min) {
+        public Atribut setMin(N min) {
             this.min = min;
             System.out.println("ATRIBUT min" + min);
             return this;
         }
 
-        public Atribut setMax(Object max) {
+        public Atribut setMax(N max) {
             this.max = max;
             System.out.println("ATRIBUT max" + max);
             return this;
+        }
+
+
+        public Atribut setRage(N rage) {
+            this.rage = rage;
+            return this;
+        }
+
+        public N getMin() {
+            return min;
+        }
+
+        public N getMax() {
+            return max;
+        }
+
+        public N getRage() {
+            return rage;
         }
 
         public Parametr end() {
