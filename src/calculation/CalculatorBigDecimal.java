@@ -1,18 +1,15 @@
 package calculation;
 
 import config.Parametr;
-import interfaces.FormulaDevicable;
+import genom.Genom;
 import main.GenetickAlgorithm;
 
-public class FormulaDevice<T> implements FormulaDevicable {
-    private Parametr parametr;
-    private final String ALL_DIGITALS = "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
-            "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
-            "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
-            "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*";
+import java.math.BigDecimal;
 
-    private Integer firstElement = null;
-    private Integer secondElement = null;
+public class CalculatorBigDecimal implements Calculatable<BigDecimal> {
+
+    private BigDecimal firstElement = null;
+    private BigDecimal secondElement = null;
     private Character operator = null;
     private boolean nexPower = false;
 
@@ -21,7 +18,7 @@ public class FormulaDevice<T> implements FormulaDevicable {
     }
 
     @Override
-    public Integer parce(Parametr.Formula formula, GenetickAlgorithm.Genom genom) {
+    public BigDecimal parce(Parametr.Formula formula, Genom genom) {
         String[] formulaChar = stringFormulaPreparation(formula.getFormula());
         boolean isPower = false;
         firstElement = null;
@@ -36,31 +33,32 @@ public class FormulaDevice<T> implements FormulaDevicable {
             if (element.matches( ALL_DIGITALS)) {
                 if (isPower) {
                     if (secondElement != null)
-                        secondElement = calculate(secondElement, '^', Integer.parseInt(element));
+                        secondElement = secondElement.pow(Integer.parseInt(element));
                     else
-                        firstElement = calculate(firstElement, '^', Integer.parseInt(element));
+                        firstElement = firstElement.pow(Integer.parseInt(element));
                     isPower = false;
                     nexPower = false;
                 } else {
-                    setArgument( Integer.parseInt(element));
+                    setArgument( element);
                 }
             } else if (element.matches("[a-zA-Z]+")) {
-                setArgument((Integer) genom.getAtributValue(element));
+                setArgument(genom.getAtributValue(element).toString());
             } else if (element.equals("^")) {
                 isPower = true;
             } else if ("/*+-".contains(element))
                 operator = element.toCharArray()[0];
             calculateIfPossible();
         }
-       calculateIfPossible();
+        calculateIfPossible();
         return firstElement;
     }
 
-    private void setArgument(Integer element){
+    private void setArgument(String element){
+        BigDecimal bd = new BigDecimal(element);
         if (firstElement == null)
-            firstElement = element;
+            firstElement = bd;
         else if (secondElement == null)
-            secondElement = element;
+            secondElement = bd;
     }
     private void calculateIfPossible(){
         if (secondElement != null && operator != null && !nexPower) {
@@ -70,21 +68,19 @@ public class FormulaDevice<T> implements FormulaDevicable {
         }
     }
 
-    private Integer calculate(Integer arg1, char operator, Integer arg2) {
+    private BigDecimal calculate(BigDecimal arg1, char operator, BigDecimal arg2) {
         switch (operator) {
             case '+':
-                return arg1 + arg2;
+                return arg1.add(arg2);
             case '-':
-                return arg1 - arg2;
+                return arg1.subtract(arg2);
             case '*':
-                return arg1 * arg2;
+                return arg1.multiply(arg2);
             case '/':
-                return arg1 / arg2;
-            case '^':
                 if (!hasNotNull(arg1, arg2))
-                    return 0;
-                Double res = Math.pow(arg1, arg2);
-                return res.intValue();
+                    return new BigDecimal(0);
+                return arg1.divide(arg2);
+
         }
         return null;
     }
@@ -110,5 +106,5 @@ public class FormulaDevice<T> implements FormulaDevicable {
         return false;
     }
 
-
 }
+

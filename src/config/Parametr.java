@@ -3,30 +3,28 @@ package config;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parametr<N> {
+public class Parametr <N extends Number> {
 
     private static Parametr parametr = null;
     private List<Atribut> atributList = new ArrayList<>();
-    private List<Parametr.Formula> formulaList = new ArrayList<>();
+    private List<Formula> formulaList = new ArrayList<>();
 
 
-    public static Parametr init() {
-        if (parametr == null)
-            parametr = new Parametr();
-        return parametr;
-    }
-
-    private Parametr(){
-    }
-
-
+    /**
+     * @param name String
+     * @return Atribut
+     */
     public Atribut createAtribut(String name) {
         Atribut atribut = new Atribut(name);
         atributList.add(atribut);
         return atribut;
     }
 
-
+    /**
+     * @param name String
+     * @param formulaStr String
+     * @return Formula
+     */
     public Formula setFormula(String name, String formulaStr) {
         Formula formula = new Formula(name,formulaStr);
         formulaList.add(formula);
@@ -37,7 +35,7 @@ public class Parametr<N> {
         return atributList;
     }
 
-    public List<Parametr.Formula> getFormulaList() {
+    public List<Formula> getFormulaList() {
         return formulaList;
     }
 
@@ -81,6 +79,7 @@ public class Parametr<N> {
         private String name;
         private N min, max, rage;
 
+
         public Atribut(String name) {
             this.name = name;
         }
@@ -97,22 +96,10 @@ public class Parametr<N> {
             return this;
         }
 
-
         public Atribut setRage(N rage) {
             this.rage = rage;
+            System.out.println("ATRIBUT rage" + rage);
             return this;
-        }
-
-        public N getMin() {
-            return min;
-        }
-
-        public N getMax() {
-            return max;
-        }
-
-        public N getRage() {
-            return rage;
         }
 
         public Parametr end() {
