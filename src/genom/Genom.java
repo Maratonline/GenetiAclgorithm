@@ -5,15 +5,18 @@ import java.util.Map;
 
 public class Genom <T extends Number> {
     Map<String, T> formulsAtributs = new HashMap<>();
-    Map<String, T> atributRages = new HashMap<>();
+
 
 
     public T getAtributValue(String atributName){
         return formulsAtributs.get(atributName);
     }
 
-    public void setAtribut(String atributName, T atributValue, T atributsRage){
+    public Map<String, T> getAtributsMap(){
+        return formulsAtributs;
+    }
+
+    public void setAtribut(String atributName, T atributValue){
         formulsAtributs.put(atributName, atributValue);
-        atributRages.put(atributName, atributsRage);
     }
 }

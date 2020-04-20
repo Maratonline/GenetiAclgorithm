@@ -1,13 +1,16 @@
 package config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Parametr <N extends Number> {
 
     private Parametr parametr = null;
     private List<Atribut> atributList = new ArrayList<>();
     private List<Formula> formulaList = new ArrayList<>();
+    private Map<String, Atribut<N>> atributMap = new HashMap<>();
 
 
     public void setLicnkToCreatedParametr(Parametr<N> parametr){
@@ -21,7 +24,12 @@ public class Parametr <N extends Number> {
     public Atribut createAtribut(String name) {
         Atribut atribut = new Atribut(name);
         atributList.add(atribut);
+        atributMap.put(name, atribut);
         return atribut;
+    }
+
+    public Map<String, Atribut<N>> getAtributMap(){
+        return atributMap;
     }
 
     /**
@@ -49,6 +57,7 @@ public class Parametr <N extends Number> {
         boolean bestResultMin, bestResultMax = false;
 
         private Formula(String name, String formula) {
+            this.name = name;
             this.formula = formula;
         }
 
@@ -90,20 +99,29 @@ public class Parametr <N extends Number> {
 
         public Atribut setMin(N min) {
             this.min = min;
-            System.out.println("ATRIBUT min" + min);
             return this;
         }
 
         public Atribut setMax(N max) {
             this.max = max;
-            System.out.println("ATRIBUT max" + max);
             return this;
         }
 
         public Atribut setRage(N rage) {
             this.rage = rage;
-            System.out.println("ATRIBUT rage" + rage);
             return this;
+        }
+
+        public N getRage(){
+            return rage;
+        }
+
+        public N getMax(){
+            return max;
+        }
+
+        public N getMin(){
+            return min;
         }
 
         public Parametr end() {

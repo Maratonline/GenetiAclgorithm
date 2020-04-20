@@ -24,8 +24,8 @@ public class Main {
         // a = 4   b = 7
         genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a * b + 2,25 ^ 2").bestResultMax());
         genetickAlgorithm.addFormul(parametr.setFormula("Length", "a ^ 2 + b ^ 2 + 15").bestResultMin());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin(1.0).setMax(20.0).setRage(0.1).end());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin(1.0).setMax(20.0).setRage(0.1).end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin(1).setMax(20.0).setRage(0.1).end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin(2).setMax(20.0).setRage(0.1).end());
         genetickAlgorithm.creatAlgorithm();
     }
 
