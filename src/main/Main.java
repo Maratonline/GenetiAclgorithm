@@ -14,7 +14,7 @@ public class Main {
 
      test();
 
-        //forTest();
+     //   forTest();
 
     }
 
@@ -24,8 +24,9 @@ public class Main {
         // a = 4   b = 7
         genetickAlgorithm.addFormul(parametr.setFormula("Sqare", "a * b + 2,25 ^ 2").bestResultMax());
         genetickAlgorithm.addFormul(parametr.setFormula("Length", "a ^ 2 + b ^ 2 + 15").bestResultMin());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin(1).setMax(20.0).setRage(0.1).end());
-        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin(2).setMax(20.0).setRage(0.1).end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("a").setMin(0.1).setMax(200.0).setRage(0.1).end());
+        genetickAlgorithm.addAtribut(parametr.createAtribut("b").setMin(0.1).setMax(200.0).setRage(0.1).end());
+
         genetickAlgorithm.creatAlgorithm();
     }
 
@@ -35,12 +36,9 @@ public class Main {
 
 
     public static void forTest() {
-        BigDecimal b1 = new BigDecimal(1000000);
-        BigDecimal b2 = new BigDecimal(2);
-//        b2 = b2.add(b1);
-        b2 = b1.divide(b2);
-        BigDecimal b3 =  b2.add(b1);
-        System.out.println( b2 );
+            Float fl = new Float(3.8);
+           int a =  ((Double)Math.ceil(fl)).intValue();
+        System.out.println(a);
     }
 
 

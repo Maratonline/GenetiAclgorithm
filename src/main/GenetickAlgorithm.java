@@ -1,10 +1,12 @@
 package main;
 
 import calculation.CalculatorBigDecimal;
+import calculation.Predictor;
 import config.Parametr;
 import genom.Genom;
 import calculation.Calculatable;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +22,13 @@ public class GenetickAlgorithm<N extends Number> {
     private Calculatable calculator;
     private Genom<N> previosgenom = null;
     private Parametr<N> parametr = null;
+    private Predictor<N> predictor = null;
+    private BigInteger possibleIterations;
 
 
     //Todo once, it should to chouse which type of calcualtor to create
     GenetickAlgorithm() {
+        predictor = new Predictor<>();
         calculator = new CalculatorBigDecimal();
 //    else
 //        calculator = new Calculator<N>();
@@ -58,6 +63,7 @@ public class GenetickAlgorithm<N extends Number> {
     }
 
     public void creatAlgorithm() {
+        possibleIterations = predictor.predictIterations(parametr);
         preparetGenerator();
         parametr.getFormulaList().forEach(formula -> {
             System.out.println(calculator.parce(formula, previosgenom));
