@@ -111,6 +111,9 @@ public class Parametr <N extends Number> {
             this.rage = rage;
             return this;
         }
+        public String getName(){
+            return name;
+        }
 
         public N getRage(){
             return rage;

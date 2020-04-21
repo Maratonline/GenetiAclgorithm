@@ -6,6 +6,7 @@ import config.Parametr;
 import genom.Genom;
 import calculation.Calculatable;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -66,17 +67,24 @@ public class GenetickAlgorithm<N extends Number> {
         possibleIterations = predictor.predictIterations(parametr);
         preparetGenerator();
         parametr.getFormulaList().forEach(formula -> {
-            System.out.println(calculator.parce(formula, previosgenom));
             calculator.parce(formula, previosgenom);
             bestGenom.put(formula.getName(), previosgenom);
         });
 
+
+    }
+
+    private void findGenom(){
+
+        while(possibleIterations.compareTo(BigInteger.ZERO) == 0)
         parametr.getFormulaList().forEach(formula -> {
             Genom<N> currentGenom = modificator();
-            System.out.println(calculator.parce(formula, currentGenom));
             bestGenom.put(formula.getName(), currentGenom);
         });
+    }
 
+    private void forTest(){
+        //for test
         for (Map.Entry<String, Genom<N>> entry : bestGenom.entrySet()) {
             System.out.println(entry.getKey());
             for (Map.Entry<String, N> entyAtr : entry.getValue().getAtributsMap().entrySet())
@@ -85,19 +93,7 @@ public class GenetickAlgorithm<N extends Number> {
         }
     }
 
-    private Genom<N> modificator() {
-        Genom<N> genom = new Genom<N>();
 
-        for (Map.Entry<String, N> entry : previosgenom.getAtributsMap().entrySet()) {
-            Parametr<N>.Atribut<N> currentAtribut = atributMap.get(entry.getKey());
-            Float newValue = entry.getValue().floatValue();
-            if (newValue < currentAtribut.getMax().floatValue())
-                newValue += currentAtribut.getRage().floatValue();
-            genom.setAtribut(entry.getKey(), (N) newValue);
-        }
-
-        return genom;
-    }
 
 
 }
