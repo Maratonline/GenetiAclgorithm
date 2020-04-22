@@ -5,8 +5,8 @@ import calculation.Predictor;
 import config.Parametr;
 import genom.Genom;
 import calculation.Calculatable;
+import genom.Modificator;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -14,16 +14,18 @@ import java.util.Map;
 
 public class GenetickAlgorithm<N extends Number> {
 
+    private Calculatable calculator = null;
+    private Genom<N> currentGenom = null;
+    private Parametr<N> parametr = null;
+    private Predictor<N> predictor = null;
+    private Modificator<N> modificator = null;
 
     private Map<String, Genom<N>> bestGenom = new HashMap<>();
     private Map<String, Genom<N>> previousGenoms = new HashMap<>();
+    private Map<String, Parametr<N>.Atribut<N>> atributMap = null;
+    private List<Parametr<N>.Atribut<N>> atributsList = null;
+    private List<Parametr<N>.Formula> formulaList = null;
 
-    Map<String, Parametr<N>.Atribut<N>> atributMap = null;
-    List<Parametr.Atribut> atributsList = null;
-    private Calculatable calculator;
-    private Genom<N> previosgenom = null;
-    private Parametr<N> parametr = null;
-    private Predictor<N> predictor = null;
     private BigInteger possibleIterations;
 
 
@@ -45,17 +47,19 @@ public class GenetickAlgorithm<N extends Number> {
     }
 
     private Genom<N> preparetGenerator() {
-        previosgenom = new Genom<N>();
+        currentGenom = new Genom<N>();
         atributMap = parametr.getAtributMap();
-        atributsList = (List<Parametr.Atribut>) parametr.getAtributList();
-
+        atributsList =  parametr.getAtributList();
+        formulaList = parametr.getFormulaList();
+        possibleIterations = predictor.predictIterations(parametr);
+        modificator = new Modificator<>(parametr);
         for (Map.Entry<String, Parametr<N>.Atribut<N>> entry : atributMap.entrySet()) {
-            previosgenom.setAtribut(entry.getKey(), entry.getValue().getMin());
+            currentGenom.setAtribut(entry.getKey(), entry.getValue().getMin());
         }
-        return previosgenom;
+        return currentGenom;
     }
 
-    public Parametr<N> getParametr() {
+    protected Parametr<N> getParametr() {
         if (parametr == null) {
             parametr = new Parametr<N>();
             parametr.setLicnkToCreatedParametr(parametr);
@@ -64,26 +68,30 @@ public class GenetickAlgorithm<N extends Number> {
     }
 
     public void creatAlgorithm() {
-        possibleIterations = predictor.predictIterations(parametr);
         preparetGenerator();
         parametr.getFormulaList().forEach(formula -> {
-            calculator.parce(formula, previosgenom);
-            bestGenom.put(formula.getName(), previosgenom);
-        });
-
-
-    }
-
-    private void findGenom(){
-
-        while(possibleIterations.compareTo(BigInteger.ZERO) == 0)
-        parametr.getFormulaList().forEach(formula -> {
-            Genom<N> currentGenom = modificator();
+            calculator.parce(formula, currentGenom);
             bestGenom.put(formula.getName(), currentGenom);
         });
+        findGenom();
+
     }
 
-    private void forTest(){
+    private void findGenom() {
+        int count = 0;
+        while (possibleIterations.compareTo(BigInteger.ZERO) != 0) {
+            currentGenom = modificator.modificate(currentGenom);
+            System.out.println("count = " +count+ "   a " + currentGenom.getAtributValue("a") + " b" + currentGenom.getAtributValue("b") + " z" + currentGenom.getAtributValue("z")+ " y" + currentGenom.getAtributValue("y"));
+            formulaList.forEach(formula -> {
+                bestGenom.put(formula.getName(), currentGenom);
+            });
+            count++;
+          possibleIterations = possibleIterations.subtract(BigInteger.valueOf(1));
+        }
+        System.out.println("The count is " + count);
+    }
+
+    private void forTest() {
         //for test
         for (Map.Entry<String, Genom<N>> entry : bestGenom.entrySet()) {
             System.out.println(entry.getKey());
@@ -92,8 +100,6 @@ public class GenetickAlgorithm<N extends Number> {
 
         }
     }
-
-
 
 
 }

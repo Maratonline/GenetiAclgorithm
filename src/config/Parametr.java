@@ -8,7 +8,7 @@ import java.util.Map;
 public class Parametr <N extends Number> {
 
     private Parametr parametr = null;
-    private List<Atribut> atributList = new ArrayList<>();
+    private List<Atribut<N>> atributList = new ArrayList<>();
     private List<Formula> formulaList = new ArrayList<>();
     private Map<String, Atribut<N>> atributMap = new HashMap<>();
 
@@ -43,7 +43,7 @@ public class Parametr <N extends Number> {
         return formula;
     }
 
-    public List<Atribut> getAtributList() {
+    public List<Atribut<N>> getAtributList() {
         return atributList;
     }
 
